@@ -1,0 +1,44 @@
+<script>
+    function ac(){
+        alert("access_controller called");
+        console.log("Access controller triggered");
+        //1-checked attribute according to a variable
+        //2- checkbox change register
+        //3- save change to db
+        <% @role = Role.all %>
+        <%= @role.each do |role| %>
+        if (document.getElementById("<%= role.name %>").checked ){
+            alert("if block from function");
+            <% role.show_currency_converter= "true"  %>
+            <% role.save %>
+        }else{
+            <% role.show_currency_converter= "false" %>
+            <% role.save %>
+        }
+        <% end %>
+        <%# @role.save %>
+    }
+</script>
+<fieldset>
+  <div>
+  <legend><%= l(:label_wk_currency_converter) %></legend><br/>
+  <h3>Visible To</h3>
+  <% @role=Role.all %>
+
+  <%  @role.each do |role| %>
+      <% if role.show_currency_converter === 1 %>
+        <label for="<%= role.name %>"></label><input type="checkbox" class="currency_converter_checkboxes" id="<%= role.name %>" name="<%= role.name %>" value="<%= role.show_currency_converter %>" onchange="ac()" checked> <%= role.name %></input>
+        <br/>
+      <% else %>
+        <input type="checkbox" class="currency_converter_checkboxes" id="<%= role.name %>" name="<%= role.name %>" value="<%= role.show_currency_converter %>" onchange="ac()"> <%= role.name %></input>
+        <br/>
+      <% end %>
+    <%  end %>
+    <% @role.each do |role| %>
+      <p> <%= role.name  %>:<%= role.show_currency_converter %></p>
+  <% end %>
+  </div>
+</fieldset>
+
+
+

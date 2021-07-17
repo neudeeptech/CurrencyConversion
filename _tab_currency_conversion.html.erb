@@ -1,0 +1,43 @@
+
+<%
+@role=Role.all
+access_hash={}
+@role.each do |role|
+  access_hash.merge!(role.name => "#{role.show_currency_converter}")
+end
+
+puts access_hash
+
+%>
+<p>
+<%= access_hash %>
+</p>
+
+
+
+<script>
+function getdata(){
+    var manager=document.getElementById("manager");
+    var developer=document.getElementById("developer");
+    var reporter=document.getElementById("reporter");
+
+    //this will return true or false
+    document.getElementById("show").innerHTML = manager.checked;
+
+    //this will return value 
+    //document.getElementById("show").innerHTML = manager.value;
+}
+</script>
+<div>
+<fieldset>
+<legend><%= l(:label_currency_conversion) %></legend><br/>
+<h3>Visible to</h3>
+<input type="checkbox" id="manager" name="manager" value="manager" onchange="getdata()"> Manager
+<br/>
+  <input type="checkbox" id="developer" name="developer" value="developer" onchange="getdata()">  Developer 
+<br/>
+  <input type="checkbox" id="reporter" name="reporter" value="reporter" onchange="getdata()"> Reporter 
+
+<p id="show"> </p>
+</div>
+</fieldset>

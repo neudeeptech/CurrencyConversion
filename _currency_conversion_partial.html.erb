@@ -1,0 +1,31 @@
+
+<%
+  def calc
+    require 'net/http'
+    require 'json'
+
+    # Setting URL
+    url = "https://v6.exchangerate-api.com/v6/c724ae55d19e2fbee9d643bf/latest/INR"
+    uri = URI(url)
+    response = Net::HTTP.get(uri)
+    response_obj = JSON.parse(response)
+
+    conversion_rate =response_obj['conversion_rates']['USD']
+    return conversion_rate
+  end
+%>
+<% rate = calc %>
+<script>
+    //rate is fetched using ruby fun and curr is being converted using js
+    function myFunction() {
+        var jsrate = <%= rate %> ;
+        var amount_in_USD= document.getElementById("amount").value;
+        var value_in_rupees=amount_in_USD/<%= rate %>;
+        var rupees_text=value_in_rupees+"  ₹"
+        document.getElementById("show").innerHTML = rupees_text;
+    }
+</script>
+
+<div>
+  Convert USD to INR : <input type="text" id="amount" onchange="myFunction()" /><p id="show"></p><br/>
+</div>
