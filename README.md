@@ -1,3 +1,4 @@
+There are no currency conversion plugins or templates available for #redmine. So we have come up with our own tweak. This will be useful for #financemanagement and #pmos to quickly do currency conversion in the tracker. This plugin extension fetches current currency rate and gives the conversion.
 
 ## steps for using this partial
 
