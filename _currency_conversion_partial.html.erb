@@ -4,6 +4,7 @@
     require 'json'
 
     # Setting URL
+    #put your api key in url for eg.(https://v6.exchangerate-api.com/v6/YOUR-API-KEY/)
     url = "https://v6.exchangerate-api.com/v6/c724ae55d19e2fbee9d643bf/latest/INR"
     uri = URI(url)
     response = Net::HTTP.get(uri)
