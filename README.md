@@ -1,18 +1,20 @@
-There are no currency conversion plugins or templates available for #redmine. So we have come up with our own tweak. This will be useful for #financemanagement and #pmos to quickly do currency conversion in the tracker. This plugin extension fetches current currency rate and gives the conversion.
+### There are no currency conversion plugins or templates available for #redmine. So we have come up with our own tweak. This will be useful for #financemanagement and #pmos to quickly do currency conversion in the tracker. This plugin extension fetches current currency rate and gives the conversion.
 
-## steps for using this partial
+## Steps for using this partial
+1. [Get your free API access key from here](@https://www.exchangerate-api.com/)  
+2. Put this partial in the view folder.
+3. Render this partial by adding following line into the place where you want the conversion happen
 
-1.put this partial in the view folder.
-2.render this partial by adding following line into the place where you want the conversion happen
 ```
 <%= render "controller_name/currency_conversion_partial"%>
-
 ```
-3.save the file
-4.migrate and restart the server.
-5.enjoy
+4. Save the file
+5. Migrate and restart the server.
+6. Enjoy
 
-## adding role based access( in Progress)
+
+
+## Adding role based access( in Progress)
 
 Way 2
 steps:
