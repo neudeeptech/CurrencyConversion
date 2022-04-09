@@ -1,33 +1,47 @@
-
-
 <%
-  def calc
+  def calc_conversion_rate
     require 'net/http'
     require 'json'
 
     # Setting URL
+    # put your api key in url for eg.(https://v6.exchangerate-api.com/v6/YOUR-API-KEY/)
     url = "https://v6.exchangerate-api.com/v6/c724ae55d19e2fbee9d643bf/latest/INR"
     uri = URI(url)
     response = Net::HTTP.get(uri)
     response_obj = JSON.parse(response)
 
+    #fetching conversaion rate
     conversion_rate =response_obj['conversion_rates']['USD']
-    return conversion_rate
+
+    #fetcing responce of api
+    api_response =response_obj['result']
+
+    #Default currency conversion rate
+    default_conversion_rate =0.0132
+    puts("-------------------API RESPONSE-----------------",api_response)
+    if api_response.eql?("success")
+      return conversion_rate
+    else
+      return default_conversion_rate
+    end
   end
 %>
-<% rate = calc %>
+<% rate = calc_conversion_rate %>
+
 <script>
     //rate is fetched using ruby fun and curr is being converted using js
-    function myFunction() {
-        var jsrate = <%= rate %> ;
+    function convert_currency() {
         var amount_in_USD= document.getElementById("amount").value;
-        var value_in_rupees=amount_in_USD/<%= rate %>;
-        var rupees_text=value_in_rupees+"  ₹"
+        var value_in_rupees=amount_in_USD/ <%= rate %>;
+        //calculate currency conversion upto %2f
+        var num2 = parseFloat(value_in_rupees).toFixed(2)
+        //add rupees symbol
+        var rupees_text=num2+"  ₹"
         document.getElementById("show").innerHTML = rupees_text;
     }
 </script>
 
 <div>
-  Convert USD to INR : <input type="text" id="amount" onchange="myFunction()" /><p style="display:inline" id="show"></p><br/>
+  Convert USD to INR : <input type="text" id="amount" onchange="convert_currency()" /><p style="display:inline" id="show"></p><br/>
 <br/><br/>
 </div>
